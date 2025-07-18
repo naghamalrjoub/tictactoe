@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>tic tac toe</title>
+        <link rel = "stylesheet" href = "tictactoe.css"> 
+    </head>
+
+    <body>
+        <h2 class = "heading">tic tac toe</h2>
+       
+        <div id = "playground">
+            <div id = "playerX">
+                <h2 id = "X"><u>X</u></h2> 
+                <h3 id = "Xscore">0</h3>
+            </div>
+            
+            <div id = "squares"></div>
+
+            <div id = "playerO">
+                <h2 id="O"><u>O</u></h2>
+                <h3 id = "Oscore">0</h3>
+            </div>
+            
+                
+        </div>
+        <div id = "Buttons"> 
+            <button onclick="RestartScore()" value = "Restart" id = "RestartScore">Restart Score</button>
+            <button onclick="RestartGame()" value = "Restart" id = "RestartButton">Restart</button>
+        </div>
+        <script src = "tictactoe.js"></script>
+    </body>        
+    
+</html>

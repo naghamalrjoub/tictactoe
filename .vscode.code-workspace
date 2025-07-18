@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "../../../.vscode"
+		},
+		{
+			"path": "../../../app"
+		},
+		{
+			"path": "../../../Documents/web"
+		},
+		{
+			"path": ".."
+		}
+	],
+    "settings": {
+        "files.associations": {
+            "iostream": "cpp",
+            "iosfwd": "cpp",
+            "chrono": "cpp",
+            "span": "cpp",
+            "cmath": "cpp"
+        }
+    }
+}

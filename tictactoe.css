@@ -1,0 +1,76 @@
+:root {
+    --gray: #f0f0f0
+}
+
+#playground {
+    display: flex;
+    justify-content: center;
+}
+
+#playerX {
+    
+    margin-right: 30px;
+    margin-top: -10px;
+    
+}
+
+#Xscore {
+    display: flex;
+    justify-content: center;
+    margin-right: 0px;
+    margin-top: -20px;
+}
+
+
+#playerO {
+    margin-left: 30px;
+    margin-top: -10px;
+}
+
+#Oscore {
+    display: flex;
+    justify-content: center;
+    margin-right: 0px;
+    margin-top: -20px;
+}
+
+#squares {
+    display: grid; /*makes the display of division with tag squares a grid*/
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;    
+    justify-content: center;
+}
+
+.square {
+    background-color: var(--gray);
+    width: 100px;
+    height: 100px;
+    border: 2px solid #333;
+    font-size: 3em;
+    display: flex; /*helps csnter things inside the box*/
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.heading {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+#Buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+#RestartButton {
+    margin-left: 100px;
+}
+
+#RestartScore {
+    margin-right: 100px;
+    
+}
+
