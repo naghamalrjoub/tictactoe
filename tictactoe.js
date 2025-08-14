@@ -43,12 +43,23 @@ function clear()
     (role1 === "X" ? CurrentPlayer.set(name1, role1) : CurrentPlayer.set(name2, role2));
 }
 
+// prompts for entering the player's names;
+function RestartNames()
+{
+    name1 = prompt("Enter first player's name:");
+    name2 = prompt("Enter second player's name:");
+
+    // nameFirst/nameSecond are the display names for each player
+    nameFirst.textContent = name1;
+    nameSecond.textContent = name2;
+}
+
 //prompts for entering player's roles;
 function RestartRoles()
 {
     while(true) 
     {
-        role1 = prompt("Enter first player's role:")
+        role1 = prompt(`Enter ${name1}'s role:`);
         if (role1.toLowerCase() == "x") 
         {
             role1 = "X", role2 = "O";
@@ -66,19 +77,8 @@ function RestartRoles()
             alert("invalid choice, please enter either \"X\" or \"O\".")
         }
     }
-
 }
 
-// prompts for entering the player's names;
-function RestartNames()
-{
-    name1 = prompt("Enter first player's name:");
-    name2 = prompt("Enter second player's name:");
-
-    // nameFirst/nameSecond are the display names for each player
-    nameFirst.textContent = name1;
-    nameSecond.textContent = name2;
-}
 
 // a function to restart the game;
 function RestartScore()
