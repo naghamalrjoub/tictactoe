@@ -1,69 +1,162 @@
 const grid = document.getElementById("squares");
-let CurrentPlayer = "X";
-let win = 0, draw = 0, xScore = 0, oScore = 0;
+let win = 0, draw = 0, FirstScoreCounter = 0, SecondScoreCounter = 0;
 let squares = Array.from(grid.children);
-let Xscore = document.getElementById("Xscore");
-let Oscore = document.getElementById("Oscore");
+let FirstScore = document.getElementById("FirstPlayerScore");
+let SecondScore = document.getElementById("SecondPlayerScore");
+let nameFirst = document.getElementById("FirstPlayer"), nameSecond = document.getElementById("SecondPlayer");
 
+class player {
+    constructor(name, role) {
+        this.name = name, this.role = role;
+    }
+    set(name, role) 
+    {
+        this.name = name;
+        this.role = role;
+    }
+    setName(name)
+    {
+        this.name = name;
+    }
+    score = 0;
+}
 
+let player1 = new player("player1", "X");
+let player2 = new player("player2", "O");
+let role1, role2, name1, name2;
+
+function clear()
+{
+    for (let i = 0; i < 9; i++)
+        squares[i].textContent = "";
+    win = 0, draw = 0;
+        (role1 === "X" ? CurrentPlayer.set(name1, role1) : CurrentPlayer.set(name2, role2));
+}
+
+//prompts for entering player's roles;
+function RestartRoles()
+{
+    while(true) 
+    {
+        role1 = prompt("Enter first player's role:")
+        if (role1.toLowerCase() == "x") 
+        {
+            role1 = "X", role2 = "O";
+            break;
+        }
+
+        else if (role1.toLowerCase() == "o")
+        {
+            role2 = "X", role1 = "O";
+            break;
+        }
+
+        else
+        {
+            alert("invalid choice, please enter either \"X\" or \"O\".")
+        }
+    }
+
+}
+
+// prompts for entering the player's names;
+function RestartNames()
+{
+    name1 = prompt("Enter first player's name:");
+    name2 = prompt("Enter second player's name:");
+
+    // nameFirst/nameSecond are the display names for each player
+    nameFirst.textContent = name1;
+    nameSecond.textContent = name2;
+}
+
+//at the beginning of the game, set each player's name and role;
+RestartNames(); 
+RestartRoles();
+player1.set(name1, role1);
+player2.set(name2, role2);
+
+// whoever chooses X starts the game
+let CurrentPlayer = (role1 === "X" ? new player(name1, role1) : new player(name2, role2));
+
+// a function to restart the board and the roles;
 function RestartGame()
 {
     for (let i = 0; i < 9; i++)
         squares[i].textContent = "";
     win = 0, draw = 0;
-    CurrentPlayer = "X";
+    RestartNames();
+    RestartRoles();
+    RestartScore();
+    player1.set(name1, role1);
+    player2.set(name2, role2);
+    (role1 === "X" ? CurrentPlayer.set(name1, role1) : CurrentPlayer.set(name2, role2));
+    
 }
 
+// a function to restart the game;
 function RestartScore()
 {
-    xScore = 0, oScore = 0;
-    Xscore.textContent = "0";
-    Oscore.textContent = "0";
+    FirstScoreCounter = 0, SecondScoreCounter = 0;
+    FirstScore.textContent = "0";
+    SecondScore.textContent = "0";
+
 }
 
 function switchPlayer(event)
 {
-    if (win || draw)
-    {
-        for (let i = 0; i < 9; i++)
-        {
-            squares[i].removeEventListener("click")
-        }
-        RestartGame();
-    }
+
     squares = Array.from(grid.children);
     const square = event.target;
     const idx = squares.indexOf(square);
     console.log(idx);
     if (square.textContent === "")
     {
-        square.textContent = CurrentPlayer;
+        square.textContent = CurrentPlayer.role;
         console.log(squares[idx].textContent);
         win = checkWin(idx);
         if (win) {
             setTimeout(() => {
-                CurrentPlayer = CurrentPlayer == "X" ? "O" : "X";
-                alert(CurrentPlayer + " has won!");
-                if (CurrentPlayer === "X")
+
+                alert(CurrentPlayer.name + " has won!");
+                if (CurrentPlayer.role === player1.role)
                 {
-                    xScore++;
-                    Xscore.textContent = xScore.toString();
+                    FirstScoreCounter++;
+                    FirstScore.textContent = FirstScoreCounter.toString();
                 }
                 else
                 {
-                    oScore++;
-                    Oscore.textContent = oScore.toString();
+                    SecondScoreCounter++;
+                    SecondScore.textContent = SecondScoreCounter.toString();
                 }
+
+                clear();
             }, 0);
         }
         draw = checkDraw();
         if (draw && !win) {
             setTimeout(() => {
                 alert("its a draw");
+                clear();
             }, 0);
+        }    
+        if (win || draw)
+        {
+            // for (let i = 0; i < 9; i++)
+            // {
+            //     squares[i].removeEventListener("click")
+            // }
+            
         }
-        else
-            CurrentPlayer = CurrentPlayer == "X" ? "O" : "X";
+        else 
+        {
+            if (CurrentPlayer.role === player1.role)
+                CurrentPlayer.set(player2.name, player2.role);
+
+            else
+                CurrentPlayer.set(player1.name, player1.role);
+        }
+                
     } 
     
 }
