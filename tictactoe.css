@@ -7,14 +7,13 @@
     justify-content: center;
 }
 
-#playerX {
-    
+#playerFirst {
     margin-right: 30px;
-    margin-top: -10px;
-    
+    margin-top: -10px;    
 }
 
-#Xscore {
+
+#FirstPlayerScore {
     display: flex;
     justify-content: center;
     margin-right: 0px;
@@ -22,12 +21,12 @@
 }
 
 
-#playerO {
+#playerSecond {
     margin-left: 30px;
     margin-top: -10px;
 }
 
-#Oscore {
+#SecondPlayerScore {
     display: flex;
     justify-content: center;
     margin-right: 0px;

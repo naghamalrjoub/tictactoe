@@ -25,12 +25,22 @@ let player1 = new player("player1", "X");
 let player2 = new player("player2", "O");
 let role1, role2, name1, name2;
 
+//at the beginning of the game, set each player's name and role;
+RestartNames(); 
+RestartRoles();
+player1.set(name1, role1);
+player2.set(name2, role2);
+
+// whoever chooses X starts the game
+let CurrentPlayer = (role1 === "X" ? new player(name1, role1) : new player(name2, role2));
+
 function clear()
 {
+    squares = Array.from(grid.children);
     for (let i = 0; i < 9; i++)
         squares[i].textContent = "";
     win = 0, draw = 0;
-        (role1 === "X" ? CurrentPlayer.set(name1, role1) : CurrentPlayer.set(name2, role2));
+    (role1 === "X" ? CurrentPlayer.set(name1, role1) : CurrentPlayer.set(name2, role2));
 }
 
 //prompts for entering player's roles;
@@ -70,20 +80,19 @@ function RestartNames()
     nameSecond.textContent = name2;
 }
 
-//at the beginning of the game, set each player's name and role;
-RestartNames(); 
-RestartRoles();
-player1.set(name1, role1);
-player2.set(name2, role2);
+// a function to restart the game;
+function RestartScore()
+{
+    FirstScoreCounter = 0, SecondScoreCounter = 0;
+    FirstScore.textContent = "0";
+    SecondScore.textContent = "0";
 
-// whoever chooses X starts the game
-let CurrentPlayer = (role1 === "X" ? new player(name1, role1) : new player(name2, role2));
+}
 
 // a function to restart the board and the roles;
 function RestartGame()
 {
-    for (let i = 0; i < 9; i++)
-        squares[i].textContent = "";
+    clear();
     win = 0, draw = 0;
     RestartNames();
     RestartRoles();
@@ -92,15 +101,6 @@ function RestartGame()
     player2.set(name2, role2);
     (role1 === "X" ? CurrentPlayer.set(name1, role1) : CurrentPlayer.set(name2, role2));
     
-}
-
-// a function to restart the game;
-function RestartScore()
-{
-    FirstScoreCounter = 0, SecondScoreCounter = 0;
-    FirstScore.textContent = "0";
-    SecondScore.textContent = "0";
-
 }
 
 function switchPlayer(event)
@@ -114,7 +114,7 @@ function switchPlayer(event)
     {
         square.textContent = CurrentPlayer.role;
         console.log(squares[idx].textContent);
-        win = checkWin(idx);
+        win = checkWin(idx), draw = checkDraw();
         if (win) {
             setTimeout(() => {
 
@@ -133,21 +133,14 @@ function switchPlayer(event)
                 clear();
             }, 0);
         }
-        draw = checkDraw();
-        if (draw && !win) {
+        
+        else if (draw) {
             setTimeout(() => {
                 alert("its a draw");
                 clear();
             }, 0);
         }    
-        if (win || draw)
-        {
-            // for (let i = 0; i < 9; i++)
-            // {
-            //     squares[i].removeEventListener("click")
-            // }
-            
-        }
+
         else 
         {
             if (CurrentPlayer.role === player1.role)
@@ -196,6 +189,8 @@ function checkDraw()
     return 1;
 }
 
+
+// initialize board
 for (let i = 0; i < 9; i++)
 {
     const square = document.createElement("div");
@@ -203,3 +198,4 @@ for (let i = 0; i < 9; i++)
     square.addEventListener("click", switchPlayer);
     grid.appendChild(square);
 }
+

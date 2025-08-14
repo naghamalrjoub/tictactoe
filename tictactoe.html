@@ -9,23 +9,23 @@
         <h2 class = "heading">tic tac toe</h2>
        
         <div id = "playground">
-            <div id = "playerX">
-                <h2 id = "FirstPlayer"><u>Player1</u></h2> 
+            <div id = "playerFirst">
+                <h2 id = "FirstPlayer" style="text-decoration: underline;">Player1</h2> 
                 <h3 id = "FirstPlayerScore">0</h3>
             </div>
             
             <div id = "squares"></div>
 
-            <div id = "playerO">
-                <h2 id="SecondPlayer"><u>Player2</u></h2>
+            <div id = "playerSecond">
+                <h2 id="SecondPlayer" style ="text-decoration: underline;"><u>Player2</u></h2>
                 <h3 id = "SecondPlayerScore">0</h3>
             </div>
             
                 
         </div>
         <div id = "Buttons"> 
-            <button onclick="RestartScore()" value = "Restart" id = "RestartScore">Restart Score</button>
-            <button onclick="RestartGame()" value = "Restart" id = "RestartButton">Restart</button>
+            <button onclick="RestartScore()" id = "RestartScore">Restart Score</button>
+            <button onclick="RestartGame()" id = "RestartButton">Restart</button>
         </div>
         <script src = "tictactoe.js"></script>
     </body>        
