@@ -1,6 +1,6 @@
 const grid = document.getElementById("squares");
 let win = 0, draw = 0, FirstScoreCounter = 0, SecondScoreCounter = 0;
-let squares = Array.from(grid.children);
+const squares = new Map();
 let FirstScore = document.getElementById("FirstPlayerScore");
 let SecondScore = document.getElementById("SecondPlayerScore");
 let nameFirst = document.getElementById("FirstPlayer"), nameSecond = document.getElementById("SecondPlayer");
@@ -36,9 +36,8 @@ let CurrentPlayer = (role1 === "X" ? new player(name1, role1) : new player(name2
 
 function clear()
 {
-    squares = Array.from(grid.children);
     for (let i = 0; i < 9; i++)
-        squares[i].textContent = "";
+        squares.get(i).textContent = "";
     win = 0, draw = 0;
     (role1 === "X" ? CurrentPlayer.set(name1, role1) : CurrentPlayer.set(name2, role2));
 }
@@ -105,15 +104,13 @@ function RestartGame()
 
 function switchPlayer(event)
 {
-
-    squares = Array.from(grid.children);
     const square = event.target;
-    const idx = squares.indexOf(square);
+    const idx = Number(square.dataset.index);
     console.log(idx);
     if (square.textContent === "")
     {
         square.textContent = CurrentPlayer.role;
-        console.log(squares[idx].textContent);
+        console.log(squares.get(idx).textContent);
         win = checkWin(idx), draw = checkDraw();
         if (win) {
             setTimeout(() => {
@@ -156,34 +153,32 @@ function switchPlayer(event)
 
 function checkWin(idx)
 {
-    squares = Array.from(grid.children);
     let i = idx;
     if (idx >= 6) i = 6; 
     else if (idx >= 3) i = 3;
     else if (idx >= 0) i = 0;
 
     
-    if (squares[i].textContent === squares[i + 1].textContent && squares[i].textContent === squares[i + 2].textContent)
+    if (squares.get(i).textContent === squares.get(i + 1).textContent && squares.get(i).textContent === squares.get(i + 2).textContent)
         return 1;
     
     i = idx % 3;
-    if (squares[i].textContent === squares[i + 3].textContent && squares[i].textContent === squares[i + 6].textContent)
+    if (squares.get(i).textContent === squares.get(i + 3).textContent && squares.get(i).textContent === squares.get(i + 6).textContent)
         return 1;
 
     if (idx === 0 || idx === 4 || idx === 8)
-        if (squares[0].textContent === squares[4].textContent && squares[4].textContent === squares[8].textContent)
+        if (squares.get(0).textContent === squares.get(4).textContent && squares.get(4).textContent === squares.get(8).textContent)
             return 1;
     if (idx === 2 || idx === 4 || idx === 6)
-        if (squares[2].textContent === squares[4].textContent && squares[4].textContent === squares[6].textContent)
+        if (squares.get(2).textContent === squares.get(4).textContent && squares.get(4).textContent === squares.get(6).textContent)
             return 1;
 }
 
 function checkDraw()
 {
-    squares = Array.from(grid.children);
     for (let i = 0; i < 9; i++)
     {
-        if (squares[i].textContent == "")
+        if (squares.get(i).textContent == "")
             return 0;
     }
     return 1;
@@ -197,5 +192,7 @@ for (let i = 0; i < 9; i++)
     square.classList.add("square");
     square.addEventListener("click", switchPlayer);
     grid.appendChild(square);
+    square.dataset.index = i;
+    squares.set(i, square);
 }
 
