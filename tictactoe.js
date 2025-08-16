@@ -10,6 +10,11 @@ const StartButton = document.getElementById("SubmitButton");
 const XButton = document.getElementById("RoleX");
 const OButton = document.getElementById("RoleO"); 
 const RolesModal = document.getElementById("roles");
+const winnerModal = document.getElementById("winnerModal");
+let winner = document.getElementById("winner");
+const CloseButton = document.querySelectorAll(".CloseModal");
+const RestartGameOnModal = document.getElementById("RestartGameWinnerModal");
+const DrawModal = document.getElementById("drawModal");
 
 class player {
     constructor(name, role) {
@@ -121,30 +126,42 @@ function switchPlayer(event)
         square.textContent = CurrentPlayer.role;
         console.log(squares.get(idx).textContent);
         win = checkWin(idx), draw = checkDraw();
-        if (win) {
-            setTimeout(() => {
-
-                alert(CurrentPlayer.name + " has won!");
-                if (CurrentPlayer.role === player1.role)
-                {
-                    FirstScoreCounter++;
-                    FirstScore.textContent = FirstScoreCounter.toString();
-                }
-                else
-                {
-                    SecondScoreCounter++;
-                    SecondScore.textContent = SecondScoreCounter.toString();
-                }
-
+        if (win) {                
+            // alert(CurrentPlayer.name + " has won!");
+            winnerModal.showModal();
+            winner.textContent = CurrentPlayer.name;
+            if (CurrentPlayer.role === player1.role)
+            {
+                FirstScoreCounter++;
+                FirstScore.textContent = FirstScoreCounter.toString();
+            }
+            else
+            {
+                SecondScoreCounter++;
+                SecondScore.textContent = SecondScoreCounter.toString();
+            }
+            
+            RestartGameOnModal.onclick = () => {
+                RestartGame();
+                winnerModal.close();
                 clear();
-            }, 0);
+            }
+
+            CloseButton[0].onclick = () => {
+                winnerModal.close();
+                clear();
+            }
+
+            
         }
         
         else if (draw) {
-            setTimeout(() => {
-                alert("its a draw");
+            DrawModal.showModal();
+            CloseButton[1].onclick = () => {
+                DrawModal.close();
                 clear();
-            }, 0);
+            }
+            
         }    
 
         else 

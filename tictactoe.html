@@ -32,6 +32,21 @@
             <button id="RoleO">O</button>
         </dialog>
 
+        <!-- modal for win -->
+         <dialog class="modal" id="winnerModal">
+            <h3><span id="winner">player</span> has won!</h3>
+            <br><br>
+            <button id = "RestartGameWinnerModal">Restart Game</button>
+            <button class = "CloseModal" id="CloseWinnerModal">close</button>
+         </dialog>
+
+         <!-- modal for draw -->
+          <dialog class="modal" id="drawModal">
+            <h3>it's a draw</h3>
+            <br><br>
+            <button class = "CloseModal" id = "CloseDrawModal">close</button>
+          </dialog>
+
 
         <div id = "playground">
             <div id = "playerFirst">
@@ -45,9 +60,9 @@
                 <h2 id="SecondPlayer" style ="text-decoration: underline;"><u>Player2</u></h2>
                 <h3 id = "SecondPlayerScore">0</h3>
             </div>
-            
-                
+     
         </div>
+
         <div id = "Buttons"> 
             <button onclick="RestartScore()" id = "RestartScore">Restart Score</button>
             <button onclick="RestartGame()" id = "RestartButton">Restart</button>
