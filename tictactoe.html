@@ -8,6 +8,31 @@
     <body>
         <h2 class = "heading">tic tac toe</h2>
        
+
+        <!-- modal for players names-->
+        <dialog class = "modal" id = "NameInput">
+            <h3>Enter Players' Names</h3>
+            <label>
+                First Player:
+                <input type = "text" id = "Player1NameInput">
+            </label>
+            <br><br>
+            <label>
+                Second Player:
+                <input type="text" id="Player2NameInput">
+            </label>
+            <br><br>
+            <button type="submit" id="SubmitButton">Start Game</button>
+        </dialog>
+
+        <!-- modal for roles -->
+        <dialog class="modal" id="roles">
+            <h3><span id="FirstPlayerForModal">Player1</span> will play: (game always starts with X)</h3>
+            <button id="RoleX">X</button>
+            <button id="RoleO">O</button>
+        </dialog>
+
+
         <div id = "playground">
             <div id = "playerFirst">
                 <h2 id = "FirstPlayer" style="text-decoration: underline;">Player1</h2> 

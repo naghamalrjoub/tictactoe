@@ -4,6 +4,12 @@ const squares = new Map();
 let FirstScore = document.getElementById("FirstPlayerScore");
 let SecondScore = document.getElementById("SecondPlayerScore");
 let nameFirst = document.getElementById("FirstPlayer"), nameSecond = document.getElementById("SecondPlayer");
+let FirstNameForModal = document.getElementById("FirstPlayerForModal");
+const NameModal = document.getElementById("NameInput");
+const StartButton = document.getElementById("SubmitButton");
+const XButton = document.getElementById("RoleX");
+const OButton = document.getElementById("RoleO"); 
+const RolesModal = document.getElementById("roles");
 
 class player {
     constructor(name, role) {
@@ -23,13 +29,10 @@ class player {
 
 let player1 = new player("player1", "X");
 let player2 = new player("player2", "O");
-let role1, role2, name1, name2;
+let role1 = "X", role2 = "O", name1 = "player1", name2 = "player2";
 
 //at the beginning of the game, set each player's name and role;
 RestartNames(); 
-RestartRoles();
-player1.set(name1, role1);
-player2.set(name2, role2);
 
 // whoever chooses X starts the game
 let CurrentPlayer = (role1 === "X" ? new player(name1, role1) : new player(name2, role2));
@@ -42,39 +45,50 @@ function clear()
     (role1 === "X" ? CurrentPlayer.set(name1, role1) : CurrentPlayer.set(name2, role2));
 }
 
+function setPlayers() {
+        player1.set(name1, role1);
+        player2.set(name2, role2);
+        (role1 === "X" ? CurrentPlayer.set(name1, role1) : CurrentPlayer.set(name2, role2));
+}
+
 // prompts for entering the player's names;
 function RestartNames()
 {
-    name1 = prompt("Enter first player's name:");
-    name2 = prompt("Enter second player's name:");
+    NameModal.showModal();
+    StartButton.onclick = () => {
+        name1 = document.getElementById("Player1NameInput").value.trim(); //make sure input is valid (not whitespace/empty)
+        name2 = document.getElementById("Player2NameInput").value.trim();
 
-    // nameFirst/nameSecond are the display names for each player
-    nameFirst.textContent = name1;
-    nameSecond.textContent = name2;
+        if (!name1 || !name2)
+            alert("Enter valid names (not empty)");
+
+        else {    
+            // nameFirst/nameSecond are the display names for each player
+            nameFirst.textContent = name1;
+            nameSecond.textContent = name2;
+            FirstNameForModal.textContent = name1;
+            NameModal.close();
+
+            // since we only reset roles after we reset names, we'll call resetRoles here
+            RestartRoles();
+        }
+    }
 }
 
 //prompts for entering player's roles;
 function RestartRoles()
 {
-    while(true) 
-    {
-        role1 = prompt(`Enter ${name1}'s role:`);
-        if (role1.toLowerCase() == "x") 
-        {
-            role1 = "X", role2 = "O";
-            break;
-        }
+    RolesModal.showModal();    
+    XButton.onclick = () => {
+        role1 = "X", role2 = "O";
+        setPlayers();
+        RolesModal.close();
+    }
 
-        else if (role1.toLowerCase() == "o")
-        {
-            role2 = "X", role1 = "O";
-            break;
-        }
-
-        else
-        {
-            alert("invalid choice, please enter either \"X\" or \"O\".")
-        }
+    OButton.onclick = () => {
+        role1 = "O", role2 = "X";
+        setPlayers();
+        RolesModal.close();   
     }
 }
 
@@ -94,12 +108,7 @@ function RestartGame()
     clear();
     win = 0, draw = 0;
     RestartNames();
-    RestartRoles();
-    RestartScore();
-    player1.set(name1, role1);
-    player2.set(name2, role2);
-    (role1 === "X" ? CurrentPlayer.set(name1, role1) : CurrentPlayer.set(name2, role2));
-    
+    RestartScore();    
 }
 
 function switchPlayer(event)
