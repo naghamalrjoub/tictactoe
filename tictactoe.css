@@ -1,10 +1,22 @@
 :root {
-    --gray: #f0f0f0
+    --gray: #e3dcdcfa;
+    --otherGray: #EEEEEE;
+    --creamWhite: #FAF9EE;
+    --Sage: #c6cdc2;
+    --hoverBabyBrown: #DCCFC0;
+    --babyBrown: #efe3d5;
+    --darkBrown: #74614a;
+    --coffeeBrown: #413629;
+}
+
+body {
+    background-color: var(--creamWhite);
 }
 
 #playground {
     display: flex;
     justify-content: center;
+    color: var(--darkBrown)
 }
 
 #playerFirst {
@@ -42,15 +54,18 @@
 }
 
 .square {
-    background-color: var(--gray);
+    background-color: var(--babyBrown);
     width: 100px;
     height: 100px;
-    border: 2px solid #333;
+    border: 2px solid;
+    border-color: --var(--coffeeBrown);
+    border-radius: 8%;
     font-size: 3em;
     display: flex; /*helps csnter things inside the box*/
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .heading {
@@ -71,5 +86,28 @@
 #RestartScore {
     margin-right: 100px;
     
+}
+
+.square:hover {
+    background-color: var(--hoverBabyBrown);
+    
+}
+
+button {
+    background-color: var(--babyBrown);
+    color: var(--darkBrown);
+    transition: all 0.3s ease;
+    border-color: var(--babyBrown);
+}
+
+button:hover {
+    background-color: var(--darkBrown);
+    color: var(--babyBrown);
+}
+
+dialog {
+    background-color: var(--creamWhite);
+    color: var(--darkBrown);
+    border-radius: 4%;
 }
 
